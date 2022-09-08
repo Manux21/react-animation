@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from 'react'
+import { Transition } from 'react-transition-group';
 
-function App() {
+export default function App() {
+  const [toggle, setToggle] = useState(true)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className='container'>
+      <button onClick={() => setToggle(!toggle)}>Toggle</button>
+      <hr/>
+      <div className="blocks">
+        <Transition
+          in={toggle}
+          timeout={{
+            enter: 1000,
+            exit: 500
+          }}
+          mountOnEnter
+          unmountOnExit
+          onEnter={()=> {console.log('onEnter')}}
+          onEntering={()=> {console.log('onEntering')}}
+          onEntered={()=> {console.log('onEntered')}}
+          onExit={()=> {console.log('onExit')}}
+          onExiting={()=> {console.log('onExiting')}}
+          onExited={()=> {console.log('onExited')}}
         >
-          Learn React
-        </a>
-      </header>
+          {state => <div className={`square blue ${state}`}>{state}</div> }
+
+        </Transition>
+      </div>
     </div>
   );
 }
-
-export default App;
